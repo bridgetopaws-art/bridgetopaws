@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridge To Paws | The Rainbow Bridge Send-off</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Quicksand:wght@300;400;500;600&display=swap');
+
+        :root {
+            --bg-cream: #F7F4EF;
+            --text-main: #5C6B73;
+            --text-light: #8A9A9A;
+            --accent-rose: #C8A8A8;
+            --border-color: #E6E1D6;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Lora', serif; font-weight: 400; margin-top: 0; }
+
+        /* ----- 导航栏 ----- */
+        header { padding: 20px 50px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-cream); position: sticky; top: 0; z-index: 100; }
+        .logo-img { height: 120px; cursor: pointer; }
+
+        /* ----- 页面切换逻辑 ----- */
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ----- 首页 BANNER ----- */
+        .hero-banner { text-align: center; padding: 160px 20px; background-image: url('banner1.jpg'); background-size: cover; background-position: center; background-color: #EFEBE5; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .hero-banner h1 { font-size: 52px; color: var(--text-main); margin-bottom: 20px; text-shadow: 0 2px 10px rgba(255,255,255,0.8); }
+        .hero-banner p { font-size: 20px; color: var(--text-main); max-width: 700px; margin: 0 auto 40px auto; font-style: italic; text-shadow: 0 1px 5px rgba(255,255,255,0.8); }
+        .cta-btn { background-color: var(--accent-rose); color: white; border: none; padding: 15px 40px; font-size: 16px; font-family: 'Quicksand', sans-serif; letter-spacing: 1px; border-radius: 30px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; }
+        .cta-btn:hover { background-color: #B39595; transform: translateY(-2px); }
+
+        /* ----- 通用内容区块排版 ----- */
+        .content-section { padding: 100px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        .section-title { font-size: 32px; margin-bottom: 20px; letter-spacing: 1px; color: var(--text-main); }
+        .philosophy-intro { font-size: 18px; color: var(--text-light); margin-bottom: 50px; font-style: italic; }
+        .philosophy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; text-align: left; }
+        .phil-item h3 { font-size: 22px; color: var(--accent-rose); margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; display: inline-block; }
+        .phil-item p { font-size: 15px; color: var(--text-main); line-height: 1.8; }
+        .about-bg { background-color: #fff; } 
+        .about-text { font-size: 16px; line-height: 1.9; color: var(--text-main); max-width: 800px; margin: 40px auto 0 auto; text-align: left; }
+        .about-text p { margin-bottom: 20px; }
+
+        /* ----- 产品列表网格 ----- */
+        .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 50px; justify-content: center; margin-top: 60px; }
+        .product-card { background: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 10px 30px rgba(92, 107, 115, 0.05); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(92, 107, 115, 0.1); }
+        .product-card img { width: 100%; border-radius: 4px; }
+        .product-card h3 { margin: 25px 0 10px 0; font-size: 24px; }
+        .product-card p { color: var(--text-light); font-size: 15px; }
+
+        /* ----- 详情页排版 (PDP) ----- */
+        .pdp-container { max-width: 1200px; margin: 60px auto; padding: 0 20px; display: flex; gap: 60px; align-items: flex-start; }
+        .pdp-gallery { flex: 1; position: sticky; top: 100px; }
+        .main-image img, .detail-images img { width: 100%; border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); background: #fff; margin-bottom: 15px; }
+        .image-hint { font-size: 12px; color: var(--text-light); margin-bottom: 10px; display: block; text-align: center; }
+        .pdp-info { flex: 1; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: var(--text-light); text-decoration: none; cursor: pointer; font-size: 14px; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+        .back-link:hover { border-color: var(--text-light); }
+        .pdp-info h1 { font-size: 32px; line-height: 1.3; margin-bottom: 10px; }
+        .quote { font-style: italic; color: var(--accent-rose); font-size: 16px; margin-bottom: 30px; }
+        .price { font-size: 24px; font-family: 'Lora', serif; color: var(--text-main); margin-bottom: 30px; }
+        .checkout-box { background: #fff; padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 40px; text-align: center; min-height: 120px; }
+        .description-content h3 { font-size: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px; color: var(--text-main); }
+        .description-content ul { padding-left: 20px; margin-bottom: 20px; }
+        .description-content li { margin-bottom: 10px; }
+        .sign-off { margin-top: 50px; font-family: 'Lora', serif; font-size: 20px; font-style: italic; text-align: center; color: var(--accent-rose); }
+
+        /* ----- FAQ 页面背景图及折叠菜单核心样式 ----- */
+        #faq-view { position: relative; min-height: 80vh; }
+        #faq-view::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('FAQ.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;
+            opacity: 0.15; z-index: 0;
+        }
+        .faq-wrapper { position: relative; z-index: 1; max-width: 800px; margin: 80px auto; padding: 0 20px; }
+        .faq-wrapper h1 { text-align: center; font-size: 38px; margin-bottom: 60px; color: var(--text-main); }
+        .faq-section-block { margin-bottom: 50px; }
+        .faq-section-block h3 { font-size: 20px; color: var(--accent-rose); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .accordion-header {
+            width: 100%; text-align: left; background: none; border: none; padding: 20px 0;
+            font-size: 16px; font-family: 'Quicksand', sans-serif; font-weight: 500; color: var(--text-main);
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: color 0.3s ease;
+        }
+        .accordion-header:hover { color: var(--accent-rose); }
+        .accordion-header::after { content: '+'; font-size: 24px; color: var(--accent-rose); transition: transform 0.3s; font-weight: 300; }
+        .accordion-header.active::after { content: '−'; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .accordion-content p { padding: 0 0 20px 0; color: var(--text-main); font-size: 15px; line-height: 1.8; margin: 0; font-weight: 500; }
+
+        /* ----- 底部 Footer ----- */
+        footer { background-color: #EFEBE5; padding: 80px 40px 30px 40px; margin-top: 60px; font-size: 14px; position: relative; z-index: 2; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto; text-align: left; }
+        .footer-col h4 { font-size: 20px; color: var(--text-main); margin-bottom: 20px; }
+        .footer-col p { color: var(--text-light); margin-bottom: 10px; line-height: 1.6; }
+        .footer-col a { color: var(--text-light); text-decoration: none; display: block; margin-bottom: 10px; transition: color 0.3s; cursor: pointer; }
+        .footer-col a:hover { color: var(--accent-rose); }
+        .footer-bottom { max-width: 1000px; margin: 60px auto 0 auto; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05); text-align: center; color: var(--text-light); font-size: 12px; letter-spacing: 1px; }
+
+        @media (max-width: 768px) { .pdp-container { flex-direction: column; gap: 30px; } .pdp-gallery { position: relative; top: 0; } .hero-banner { padding: 100px 20px; } .hero-banner h1 { font-size: 38px; } }
+    </style>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=BAAGOum46WwDrU29kNVNNZDyQ9lztY5ZL-hXvNED_Yow_uK1Yj7GmAMalFdVkXEcIIz2KW-ashgYsapN28&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+
+</head>
+<body>
+
+    <header>
+        <img src="logo原色小.png" alt="Bridge To Paws" class="logo-img" onclick="showView('home-view')">
+    </header>
+
+    <main id="home-view" class="view-section active">
+        
+        <section class="hero-banner">
+            <h1>Love Knows No Distance.</h1>
+            <p>Beyond the Rainbow Bridge, love continues. Send a piece of comfort to your beloved companion with beauty and grace.</p>
+            <button class="cta-btn" onclick="scrollToSection('shop-section')">Shop the Collection</button>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">A Connection That Transcends</h2>
+            <p class="philosophy-intro">Our memorial pieces are crafted based on the "Rainbow Bridge" narrative, focusing on warmth, comfort, and hope.</p>
+            <div class="philosophy-grid">
+                <div class="phil-item">
+                    <h3>Celestial Currency</h3>
+                    <p>These are more than traditional items—they are letters of longing sent to the other side. Each design is infused with love and artistry, wishing our pets a carefree and joyous life in their new world.</p>
+                </div>
+                <div class="phil-item">
+                    <h3>Eternal Treats</h3>
+                    <p>A tangible expression of the affection they once enjoyed. Packaged with care and featuring healing, artistic patterns, these tokens make our love concrete and beautiful.</p>
+                </div>
+                <div class="phil-item">
+                    <h3>Our Aesthetic</h3>
+                    <p>We reject the outdated and the clinical. BridgetoPaws embraces soft hues and refined paper arts. We believe that memorializing your companion should be an experience of beauty, designed to preserve the sense of constant companionship.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="shop-section" class="content-section">
+            <h2 class="section-title">The Remembrance Collection</h2>
+            <div class="cards-container">
+                <div class="product-card" onclick="showView('pdp-dog')">
+                    <img src="狗首图.jpg" alt="Celestial Feast Collection (Dog)">
+                    <h3>The Celestial Feast Collection</h3>
+                    <p>A Complete Memorial Tribute for Your Loyal Companion</p>
+                </div>
+                <div class="product-card" onclick="showView('pdp-cat')">
+                    <img src="猫首图.jpg" alt="Celestial Cat Feast Collection">
+                    <h3>The Celestial Cat Feast Collection</h3>
+                    <p>A Sacred Final Tribute for Your Beloved Feline Companion</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-section" class="content-section about-bg">
+            <h2 class="section-title">About BridgetoPaws</h2>
+            <div class="about-text">
+                <p>When our furry friends cross the Rainbow Bridge, they leave behind not just our longing, but a lifetime of warmth and joy.</p>
+                <p>At BridgetoPaws, we believe that love is a bond that transcends dimensions. We move away from somber, traditional rituals, choosing instead to celebrate the vibrant lives that once graced our own. We founded BridgetoPaws to provide a serene sanctuary for the heart—a place where remembrance is gentle, aesthetic, and profound.</p>
+                <p>We curate a collection of memorial goods that blend artistry with sentiment. From our "Celestial Currency" to our "Eternal Treats," every piece is designed to turn your missing into a tangible act of beauty. We use soft palettes and delicate papercraft to ensure that every item feels like a gift, not a burden.</p>
+                <p>BridgetoPaws is more than a boutique; it is a space for healing, where love flows endlessly. Let us walk with you as you cherish the memories that define your eternal connection.</p>
+            </div>
+        </section>
+    </main>
+
+    <main id="pdp-dog" class="view-section">
+        <div class="pdp-container">
+            <div class="pdp-gallery">
+                <a class="back-link" onclick="showView('home-view')">← Back to Collection</a>
+                <div class="main-image"><img src="狗首图.jpg" alt="Dog Collection"></div>
+                <div class="detail-images">
+                    <span class="image-hint">Scroll for detail views</span>
+                    <img src="狗长图.png" alt="Dog Collection Details">
+                </div>
+            </div>
+
+            <div class="pdp-info">
+                <h1>The Eternal Journey: Celestial Feast Collection</h1>
+                <p class="quote">"Because love knows no boundaries, and every loyal soul deserves a grand send-off."</p>
+                <div class="price">$59.00 USD /set</div>
+                <div class="checkout-box">
+                    
+                    <div id="paypal-container-4RRFGWJBGYV3U"></div>
+                    <script>
+                        paypal.HostedButtons({
+                            hostedButtonId: "4RRFGWJBGYV3U",
+                        }).render("#paypal-container-4RRFGWJBGYV3U")
+                    </script>
+
+                </div>
+                
+                <div class="description-content">
+                    <p>This product information page is designed to resonate deeply with the emotions of American pet owners, positioning this collection not just as "paper goods," but as a sacred "Rainbow Bridge Send-off" that honors the bond between a pet and their family.</p>
+                    
+                    <h3>1. THE TRIBUTE MANIFEST | WHAT’S INCLUDED</h3>
+                    <p>This collection features 10 meticulously crafted, eco-friendly paper tributes, covering all the favorite flavors of a beloved dog's life:</p>
+                    <ul>
+                        <li><strong>STAPLE: Rainbow Bridge Blend</strong> (1 Bag with paper kibble) - The final nourishment for the journey home.</li>
+                        <li><strong>SIDES: Eternal Recipe & Heavenly Feast</strong> (2 Cans, simulated tins) - Delicate care and eternal flavors.</li>
+                        <li><strong>PROTEIN: The Four Protein Selection</strong> (4 Trays, simulated meat) - Beef, Chicken, Tuna, and Salmon favorites.</li>
+                        <li><strong>LOVE: Heavenly Currency Collection</strong> (3 Stacks, themed currency) - Ensuring they are "rich" in love and treats.</li>
+                    </ul>
+
+                    <h3>2. ARTISANAL CRAFTSMANSHIP | PRODUCT HIGHLIGHTS</h3>
+                    <p><strong>🌟 Rainbow Bridge Blend (The Eternal Journey Recipe)</strong><br>
+                    Visual Design: Housed in a premium kraft paper bag featuring an ethereal illustration of a Golden Retriever running toward the horizon.<br>
+                    Interior Detail: Filled with symbolic kibble granules made from recycled paper pulp, featuring a realistic fiber texture designed specifically for the ritual.</p>
+
+                    <p><strong>🥩 The "Fresh" Protein Selection (Simulated Art)</strong><br>
+                    Hyper-Realistic Textures: Advanced printing techniques replicate the marbled grain of beef, the vibrance of salmon, and the tenderness of white meat tuna and chicken.<br>
+                    Premium Presentation: Each meat portion is served in an eco-friendly tray with a branded sleeve, mimicking high-end boutique grocery packaging.</p>
+
+                    <p><strong>💖 Heavenly Currency (The Currency of Love)</strong><br>
+                    These are more than notes; they are tokens of an unbreakable bond, featuring three denominations:</p>
+                    <ul>
+                        <li><strong>3,000 LOVES:</strong> Every note represents a heart full of affection.</li>
+                        <li><strong>1,000,000 TREATS:</strong> May there be an endless supply of snacks on the other side.</li>
+                        <li><strong>1,000,000 HUGS:</strong> A million warm embraces to keep them safe and cozy.</li>
+                    </ul>
+
+                    <h3>3. THE REMEMBRANCE RITUAL | HOW TO HONOR</h3>
+                    <ul>
+                        <li><strong>WHISPER & WRITE:</strong> Before the ceremony, feel free to write a final "I love you" or your pet's name on the back of the bag or the currency notes.</li>
+                        <li><strong>PREPARE THE PLATE:</strong> Arrange the simulated meat and cans as if you were preparing their favorite meal one last time.</li>
+                        <li><strong>THE SACRED RELEASE:</strong><br>
+                        <em>By Fire:</em> Burn in a fire-safe container; imagine the smoke carrying the aroma and your love upward to the Rainbow Bridge.<br>
+                        <em>By Earth:</em> Bury in a garden; these materials will naturally return to the soil, symbolizing the cycle of life.</li>
+                    </ul>
+
+                    <h3>4. ECO-PROMISE & SAFETY</h3>
+                    <ul>
+                        <li><strong>EARTH-CONSCIOUS:</strong> All items are made from 100% biodegradable paper and printed with non-toxic soy inks.</li>
+                        <li><strong>NON-CONSUMABLE:</strong> Symbolic memorial product only. NOT FOR ANIMAL OR HUMAN CONSUMPTION.</li>
+                        <li><strong>FIRE SAFETY:</strong> For burning rituals, always use a fire-safe vessel and never leave unattended.</li>
+                    </ul>
+                    
+                    <p class="sign-off">UNTIL WE MEET AGAIN.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="pdp-cat" class="view-section">
+        <div class="pdp-container">
+            <div class="pdp-gallery">
+                <a class="back-link" onclick="showView('home-view')">← Back to Collection</a>
+                <div class="main-image"><img src="猫首图.jpg" alt="Cat Collection"></div>
+                <div class="detail-images">
+                    <span class="image-hint">Scroll for detail views</span>
+                    <img src="猫长图.png" alt="Cat Collection Details">
+                </div>
+            </div>
+            <div class="pdp-info">
+                <h1>The Eternal Journey: Celestial Cat Feast Collection</h1>
+                <p class="quote">"Because every purr was a gift, and every bond is forever. Give them the grand send-off they deserve across the Rainbow Bridge."</p>
+                <div class="price">$59.00 USD /set</div>
+                <div class="checkout-box">
+                    
+                    <div id="paypal-container-4RRFGWJBGYV3U-cat"></div>
+                    <script>
+                        paypal.HostedButtons({
+                            hostedButtonId: "4RRFGWJBGYV3U",
+                        }).render("#paypal-container-4RRFGWJBGYV3U-cat")
+                    </script>
+
+                </div>
+                
+                <div class="description-content">
+                    <p>This comprehensive memorial set features 14 meticulously crafted, eco-friendly paper tributes, honoring the refined palate of a beloved cat:</p>
+                    
+                    <h3>1. THE TRIBUTE MANIFEST | WHAT’S INCLUDED</h3>
+                    <ul>
+                        <li><strong>STAPLE: Rainbow Bridge Blend (Cat Edition)</strong> (1 Bag with paper kibble) - Final nourishment for the journey home.</li>
+                        <li><strong>SIDES: Eternal Recipe & Heavenly Feast</strong> (2 Cans, simulated tins) - Delicate care and eternal comfort.</li>
+                        <li><strong>PROTEIN: The Four Gourmet Meats</strong> (4 Trays) - Chicken, Beef, Tuna, Salmon: A feast of their absolute favorites.</li>
+                        <li><strong>TREATS: Purr-fect Offering Cat Sticks</strong> (4 Flavors) - Chicken, Beef, Tuna, Salmon: One last reward for a life of joy.</li>
+                        <li><strong>LOVE: Heavenly Currency Collection</strong> (3 Stacks, themed currency) - Ensuring they are rich in love and snacks.</li>
+                    </ul>
+
+                    <h3>2. ARTISANAL CRAFTSMANSHIP | PRODUCT HIGHLIGHTS</h3>
+                    <p><strong>🌟 Rainbow Bridge Blend: The Eternal Journey Recipe</strong><br>
+                    Visual Design: A premium kraft paper bag featuring a low-saturation Morandi rainbow and a graceful tabby cat illustration running through a field.<br>
+                    Symbolic Kibble: Filled with handcrafted paper granules that mimic the shape of kibble but feature a distinct recycled paper fiber texture.</p>
+
+                    <p><strong>🥩 Gourmet Protein & Treats (Simulation Art)</strong><br>
+                    Hyper-Realistic Meats: Advanced printing replicates the marbling of beef, the vibrance of salmon, and the texture of tuna and chicken, all served in eco-friendly paper trays.<br>
+                    Lickable Cat Sticks: Four individual "Purr-fect Offering" packets featuring cute line-art cat illustrations, representing the playful treats cats love most.<br>
+                    Celestial Cans: Two simulated tins—"Eternal Recipe" featuring a sleeping kitten and "Heavenly Feast" featuring an angelic cat.</p>
+
+                    <p><strong>💖 Heavenly Currency: The Wealth of Affection</strong><br>
+                    Each note is a token of your unbreakable bond, featuring three denominations with adorable cat faces:</p>
+                    <ul>
+                        <li><strong>3,000 LOVES:</strong> To represent every head-bump and cuddle shared.</li>
+                        <li><strong>1,000,000 TREATS:</strong> Ensuring the cupboards are never empty in the clouds.</li>
+                        <li><strong>1,000,000 HUGS:</strong> A million warm embraces to keep them safe forever.</li>
+                    </ul>
+
+                    <h3>3. THE REMEMBRANCE RITUAL | HOW TO HONOR</h3>
+                    <ul>
+                        <li><strong>A FINAL WHISPER:</strong> Before the ceremony, write your cat's name or a short love note on the back of the paper treats or currency.</li>
+                        <li><strong>PREPARE THE FEAST:</strong> Arrange the simulated meats, cans, and treats as if you were preparing their favorite meal one last time.</li>
+                        <li><strong>THE SACRED RELEASE:</strong><br>
+                        <em>By Fire:</em> As the paper turns to soft ash, visualize your love and memories rising as light to meet them on the other side of the bridge.<br>
+                        <em>By Earth:</em> Bury the collection in a special garden spot; these biodegradable materials will naturally return to the soil, symbolizing the cycle of life.</li>
+                    </ul>
+
+                    <h3>4. ECO-PROMISE & SAFETY</h3>
+                    <ul>
+                        <li><strong>EARTH-CONSCIOUS:</strong> All items are made from 100% biodegradable paper and printed with non-toxic, eco-friendly soy inks.</li>
+                        <li><strong>NON-CONSUMABLE:</strong> This is a symbolic memorial product. NOT FOR ANIMAL OR HUMAN CONSUMPTION.</li>
+                        <li><strong>FIRE SAFETY:</strong> For burning rituals, always use a fire-safe vessel and never leave the ritual unattended.</li>
+                    </ul>
+
+                    <p class="sign-off">UNTIL WE MEET AGAIN.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="faq-view" class="view-section">
+        <div class="faq-wrapper">
+            <h1>Frequently Asked Questions</h1>
+            
+            <div class="faq-section-block">
+                <h3>Section 1: About Our Products</h3>
+                <div class="accordion-item">
+                    <button class="accordion-header">What is the philosophy behind BridgetoPaws products?</button>
+                    <div class="accordion-content">
+                        <p>We create "healing memorial goods" designed to bridge the gap between you and your pet at the Rainbow Bridge. Unlike traditional somber funeral items, our products focus on beauty, art, and the celebration of the love you shared. They are symbolic messengers for your thoughts and wishes.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">How do I use the "Celestial Currency" and "Eternal Treats"?</button>
+                    <div class="accordion-content">
+                        <p>These are designed for symbolic rituals. Many our customers choose to use them in a quiet moment of reflection, as part of a home memorial altar, or during a gentle ritual to "send" love to their pets. Our paper-based goods are crafted for elegance and a sense of ceremony.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section-block">
+                <h3>Section 2: Shipping & Delivery</h3>
+                <div class="accordion-item">
+                    <button class="accordion-header">Do you ship internationally?</button>
+                    <div class="accordion-content">
+                        <p>Yes, we ship worldwide! We want every pet parent to be able to connect with their companions, no matter where they are.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">How long will it take for my order to arrive?</button>
+                    <div class="accordion-content">
+                        <p>Orders are typically processed within 2-3 business days. International shipping usually takes 10-20 business days depending on the destination. You will receive a tracking number via email once your package is on its way.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section-block">
+                <h3>Section 3: Payments & Security</h3>
+                <div class="accordion-item">
+                    <button class="accordion-header">What payment methods do you accept?</button>
+                    <div class="accordion-content">
+                        <p>We currently accept payments via PayPal, which supports major credit cards and ensures a secure transaction for our international customers.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Is my personal information secure?</button>
+                    <div class="accordion-content">
+                        <p>Absolutely. We use industry-standard encryption to protect your data. Your privacy and trust are our top priorities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section-block">
+                <h3>Section 4: Returns & Support</h3>
+                <div class="accordion-item">
+                    <button class="accordion-header">Can I return or exchange my items?</button>
+                    <div class="accordion-content">
+                        <p>Due to the delicate and personal nature of our memorial products, we generally do not accept returns. However, if your order arrives damaged or there is an issue with the quality, please contact us at bridgetopaws@gmail.com within 7 days, and we will make it right.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">I am feeling overwhelmed by the loss of my pet. Can you help?</button>
+                    <div class="accordion-content">
+                        <p>While we are not professional counselors, our brand was built on empathy. We hope our products bring you a sliver of peace. We often share healing stories and resources on our Instagram (@BridgetoPaws) and TikTok (@BridgetoPaws)—feel free to join our community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>BridgetoPaws</h4>
+                <p>A Boutique for Healing Pet Memorials</p>
+                <p><i>Where memories are kept with grace.</i></p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a onclick="scrollToSection('about-section')">About Us</a>
+                <a onclick="scrollToSection('shop-section')">Shop</a>
+                <a onclick="showView('faq-view')">FAQ</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="mailto:bridgetopaws@gmail.com">bridgetopaws@gmail.com</a>
+                <a href="#">Instagram: @BridgetoPaws</a>
+                <a href="#">TikTok: @BridgetoPaws</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 BridgetoPaws. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        function showView(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function scrollToSection(sectionId) {
+            const homeView = document.getElementById('home-view');
+            if (!homeView.classList.contains('active')) {
+                showView('home-view');
+                setTimeout(() => { executeScroll(sectionId); }, 50);
+            } else {
+                executeScroll(sectionId);
+            }
+        }
+
+        function executeScroll(sectionId) {
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                const headerOffset = 160; 
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const accordions = document.querySelectorAll('.accordion-header');
+            accordions.forEach(acc => {
+                acc.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
